@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\GroupAssignController;
+use App\Http\Controllers\admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'AdminLogin')->name('admin.AdminLogin');
@@ -39,4 +40,7 @@ Route::prefix('admin')->controller(GroupAssignController::class)->group(function
     Route::post('/assign-contacts','saveAssignContacts')->name('assign.contacts');
     Route::get('/manage-assign-group', 'manageAssignGroup')->name('admin.manageAssignGroup');
 });
+
+Route::post('/send-whatsapp-message', [WhatsappController::class, 'sendWhatsAppMessage'])->name('sendWhatsappMessage');
+
 

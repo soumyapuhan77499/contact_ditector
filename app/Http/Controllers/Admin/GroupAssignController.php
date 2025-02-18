@@ -53,7 +53,6 @@ public function manageAssignGroup()
     ->get()
     ->groupBy('group_id');
 
-
     return view('admin.manage-assign-group', compact('groupedContacts'));
 }
 

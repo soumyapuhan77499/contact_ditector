@@ -2,11 +2,12 @@
 
 @section('styles')
 <!-- Add Bootstrap and Custom Styles -->
+
 <style>
-/* Body Background */
 body {
     min-height: 100vh;
 }
+
 /* Accordion Styling */
 .accordion-button {
     background: linear-gradient(90deg, #4B79A1, #283E51) !important;
@@ -78,6 +79,18 @@ body {
     background: linear-gradient(90deg, #FF5F6D, #FFC371);
     transform: scale(1.05);
 }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
 </style>
 
 @endsection
@@ -108,6 +121,20 @@ body {
                     </span>
                 </button>
             </h2>
+
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
+
             <div id="collapse{{ $groupId }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $groupId }}"
                 data-bs-parent="#groupAccordion">
                 <div class="accordion-body">
@@ -131,6 +158,48 @@ body {
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- Button to trigger WhatsApp message modal for this group -->
+                    <div class="mt-4 d-flex justify-content-center">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#whatsappModal{{ $groupId }}">
+                            <i class="fa fa-send"></i> Send WhatsApp Message
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for sending WhatsApp message to this group -->
+        <div class="modal fade" id="whatsappModal{{ $groupId }}" tabindex="-1"
+            aria-labelledby="whatsappModalLabel{{ $groupId }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="whatsappModalLabel{{ $groupId }}">Send WhatsApp Message to Group
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="whatsappMessageForm{{ $groupId }}" action="{{ route('sendWhatsappMessage') }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="group_id" value="{{ $groupId }}">
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="3"
+                                    placeholder="Enter your message"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Upload Photo (Optional)</label>
+                                <input class="form-control" type="file" id="image" name="image">
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,6 +208,7 @@ body {
     @endif
 </div>
 @endsection
+
 
 @section('scripts')
 <script>
