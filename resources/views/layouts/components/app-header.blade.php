@@ -243,10 +243,10 @@
 												</div>
 												<a class="dropdown-item" href="{{url('profile')}}"><i class="far fa-user-circle"></i>Profile</a>
 												<a class="dropdown-item" href="{{url('mail')}}"><i class="far fa-comment-dots"></i>Messages</a>
-												<form method="GET" action="{{ route('admin.logout') }}">
+												{{-- <form method="GET" action="{{ route('admin.logout') }}">
 													@csrf
 													<button type="submit" class="btn btn-danger">Logout</button>
-												</form>
+												</form> --}}
 
 												<!-- <a class="dropdown-item" href="{{url('logout')}}"><i class="far fa-arrow-alt-circle-left"></i> Sign Out</a> -->
 											</div>

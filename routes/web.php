@@ -9,14 +9,8 @@ use App\Http\Controllers\Admin\GroupAssignController;
 use App\Http\Controllers\admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
-    Route::get('/', 'AdminLogin')->name('admin.AdminLogin');
-    Route::get('/admin/register', 'AdminRegister')->name('admin.register');
-    Route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
-    Route::post('/save-admin-login', 'saveAdminLogin')->name('admin.saveAdminLogin');
-    Route::post('/save-admin-register', 'saveAdminRegister')->name('admin.saveAdminRegister');
-    Route::get('/admin-logout','adminLogout')->name('admin.logout');
-    Route::get('/forgot-password','showResetForm')->name('password.reset.form');
-    Route::post('/save-forgot-password','resetPassword')->name('admin.resetPassword');
+    Route::get('/', 'dashboard')->name('admin.AdminLogin');
+   
 });
 
 Route::controller(ContactController::class)->group(function() {
