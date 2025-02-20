@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\GroupAssignController;
-use App\Http\Controllers\admin\WhatsappController;
+use App\Http\Controllers\Admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'dashboard')->name('admin.AdminLogin');
