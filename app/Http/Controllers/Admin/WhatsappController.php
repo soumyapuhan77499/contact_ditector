@@ -43,8 +43,8 @@ class WhatsappController extends Controller
         }
     
         // Initialize Twilio Client
-        $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
-    
+        $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
+
         // Twilio WhatsApp From Number (Must be the Twilio Sandbox or Verified Number)
         $twilioWhatsAppFrom = env('TWILIO_WHATSAPP_FROM', 'whatsapp:+14155238886');
     
