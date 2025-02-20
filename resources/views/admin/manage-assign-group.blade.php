@@ -107,6 +107,18 @@ body {
     @if($groupedContacts->isEmpty())
     <div class="alert alert-warning text-center fw-bold">No assigned groups available.</div>
     @else
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class="accordion" id="groupAccordion">
         @foreach ($groupedContacts as $groupId => $contacts)
         <div class="accordion-item">
@@ -122,18 +134,7 @@ body {
                 </button>
             </h2>
 
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-
-            @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-
+        
 
             <div id="collapse{{ $groupId }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $groupId }}"
                 data-bs-parent="#groupAccordion">
@@ -166,7 +167,6 @@ body {
                             <i class="fa fa-send"></i> Send WhatsApp Message
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -183,8 +183,8 @@ body {
                     </div>
                     <div class="modal-body">
                         <form id="whatsappMessageForm{{ $groupId }}" action="{{ route('sendWhatsappMessage') }}"
-                            method="POST" enctype="multipart/form-data">
-                            @csrf
+                        method="POST" enctype="multipart/form-data">
+                        @csrf
                             <input type="hidden" name="group_id" value="{{ $groupId }}">
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>

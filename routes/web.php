@@ -10,7 +10,6 @@ use App\Http\Controllers\admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'dashboard')->name('admin.AdminLogin');
-   
 });
 
 Route::controller(ContactController::class)->group(function() {
@@ -35,6 +34,6 @@ Route::prefix('admin')->controller(GroupAssignController::class)->group(function
     Route::get('/manage-assign-group', 'manageAssignGroup')->name('admin.manageAssignGroup');
 });
 
-Route::post('/send-whatsapp-message', [WhatsappController::class, 'sendWhatsAppMessage'])->name('sendWhatsappMessage');
+Route::post('/send-whatsapp-message', [WhatsappController::class, 'sendMessage'])->name('sendWhatsappMessage');
 
 

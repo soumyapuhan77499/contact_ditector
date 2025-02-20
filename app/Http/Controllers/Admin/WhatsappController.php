@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GroupAssign;
 use Twilio\Rest\Client;
+use App\Models\ContactDetails;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -14,106 +17,64 @@ class WhatsappController extends Controller
 {
     
     
-    public function sendWhatsAppMessage(Request $request)
+    public function sendMessage(Request $request)
     {
-        // Validate the input data
-        $validated = $request->validate([
-            'message' => 'required|string',
-            'image' => 'nullable|image|max:2048',
-            'group_ids' => 'required|array', // Ensure group_ids are an array
-            'group_ids.*' => 'exists:groups,id' // Validate each group_id exists in the database
+        $request->validate([
+            'group_id' => 'required|exists:contact__assign_group,group_id',
+            'message'  => 'required|string',
+            'image'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
-        try {
-            // Get all assigned contacts safely, with null checks
-            $contacts = GroupAssign::with('contactDetails') // Ensure the relationship is loaded
-                ->whereIn('group_id', $request->group_ids)
-                ->get()
-                ->map(function ($groupAssign) {
-                    // Check if contactDetails is null and log if necessary
-                    if (!$groupAssign->contactDetails) {
-                        Log::debug("No contactDetails for groupAssign ID: " . $groupAssign->id);
-                        return null; // Return null if there's no contactDetails
-                    }
+        $groupId = $request->group_id;
+        $message = $request->message;
+        $imageUrl = null;
     
-                    // Ensure the phone number is in the correct format with the +91 country code
-                    $phoneNumber = $groupAssign->contactDetails->phone;
-                    if (!preg_match('/^\+91\d{10}$/', $phoneNumber)) {
-                        Log::debug("Invalid phone number format for contact ID: " . $groupAssign->id);
-                        return null; // Return null if the phone number format is incorrect
-                    }
+        // Handle Image Upload if Provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('whatsapp_images', 'public');
+            $imageUrl = url("storage/$imagePath"); // Ensure a full URL is used
+        }
     
-                    return $phoneNumber; // Return the valid phone number in the required format
-                })
-                ->filter() // Remove any null values from the collection
-                ->values();
-
+        // Fetch All Contacts in the Group
+        $contacts = GroupAssign::where('group_id', $groupId)
+            ->where('status', 'active')
+            ->with('contactDetails')
+            ->get();
     
-            // If no contacts are found, return an appropriate error
-            if ($contacts->isEmpty()) {
-                session()->flash('error', 'No valid contacts found for the provided group IDs.');
-                return back();
-            }
+        if ($contacts->isEmpty()) {
+            return back()->with('error', 'No active contacts found in this group.');
+        }
     
-            // Get the Twilio credentials from the .env file
-            $sid = env('TWILIO_SID');
-            $token = env('TWILIO_AUTH_TOKEN');
-            $from = 'whatsapp:' . env('TWILIO_WHATSAPP_NUMBER');  // WhatsApp-enabled number
+        // Initialize Twilio Client
+        $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
     
-            $client = new Client($sid, $token);
+        // Twilio WhatsApp From Number (Must be the Twilio Sandbox or Verified Number)
+        $twilioWhatsAppFrom = env('TWILIO_WHATSAPP_FROM', 'whatsapp:+14155238886');
     
-            // Handle file upload if image is provided
-            $mediaUrl = null;
-            if ($request->hasFile('image')) {
-                // Ensure the uploaded image is valid
-                $image = $request->file('image');
-                $path = $image->storeAs('whatsapp_images', time() . '.' . $image->getClientOriginalExtension(), 'public');
-                $mediaUrl = asset('storage/' . $path);  // Path to the uploaded image
-            }
-    
-            // Send the message to each contact
-            foreach ($contacts as $contact) {
+        // Send WhatsApp Message to Each Contact
+        foreach ($contacts as $contact) {
+            if ($contact->contactDetails && $contact->contactDetails->phone) {
                 try {
-                    $messageData = [
-                        'body' => $request->message,
-                        'from' => $from,
-                        'to' => 'whatsapp:' . $contact, // Use the correct phone number format (e.g., +917749968976)
+                    $recipientPhone = "whatsapp:" . $contact->contactDetails->phone;
+    
+                    $twilioMessage = [
+                        "from" => $twilioWhatsAppFrom,
+                        "body" => $message
                     ];
     
-                    // Include the image if available
-                    if ($mediaUrl) {
-                        $messageData['mediaUrl'] = [$mediaUrl];
+                    // If Image Exists, Attach Media
+                    if ($imageUrl) {
+                        $twilioMessage["mediaUrl"] = [$imageUrl];
                     }
     
-                    // Try sending the message
-                    $client->messages->create(
-                        'whatsapp:' . $contact, // WhatsApp number with the country code
-                        $messageData
-                    );
-                } catch (\Twilio\Exceptions\RestException $e) {
-                    // Catch Twilio-specific errors and log them
-                    Log::error('Twilio API Error for contact ' . $contact . ': ' . $e->getMessage());
-                    session()->flash('error', 'Twilio API Error: ' . $e->getMessage());
-                    return back();
+                    $twilio->messages->create($recipientPhone, $twilioMessage);
                 } catch (\Exception $e) {
-                    // Catch general errors and log them
-                    Log::error('General Error for contact ' . $contact . ': ' . $e->getMessage());
-                    session()->flash('error', 'Error sending message to ' . $contact . ': ' . $e->getMessage());
-                    return back();
+                    Log::error("Twilio Error: " . $e->getMessage());
                 }
             }
-    
-            // If all messages are sent successfully, return a success message
-            session()->flash('success', 'Messages sent successfully!');
-            return back();
-    
-        } catch (\Exception $e) {
-            // Catch any other general errors in the entire method
-            Log::error('General Error: ' . $e->getMessage());
-            session()->flash('error', 'Error sending messages: ' . $e->getMessage());
-            return back();
         }
-    }
     
+        return back()->with('success', 'WhatsApp messages sent successfully.');
+    }
     
 }
