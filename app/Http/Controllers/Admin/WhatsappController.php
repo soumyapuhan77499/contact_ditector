@@ -10,9 +10,6 @@ use App\Models\ContactDetails;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-
-
-
 class WhatsappController extends Controller
 {
     
