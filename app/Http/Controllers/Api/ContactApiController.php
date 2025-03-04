@@ -30,7 +30,15 @@ class ContactApiController extends Controller
             $contact = new ContactDetails();
             $contact->contact_id = "CONTACT" . rand(1000, 9999);
             $contact->name = $contactData['name'];
-            $contact->phone = $contactData['phone'];
+
+            $phone = ltrim($contactData['phone'], '0');
+            
+            if (str_starts_with($phone, '91')) {
+                $contact->phone = '+' . $phone;
+            } else {
+                $contact->phone = '+91' . $phone;
+            }
+            
             $contact->save();
 
             $insertedContacts[] = $contact;

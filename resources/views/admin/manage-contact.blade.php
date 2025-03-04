@@ -91,11 +91,68 @@ th {
     </div>
     <div class="justify-content-center mt-2">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">Add Contact</button></li>
             <li class="breadcrumb-item"><a href="javascript:void(0);">Contact</a></li>
             <li class="breadcrumb-item active" aria-current="page">Manage Contacts</li>
         </ol>
     </div>
 </div>
+
+<!-- Add Contact Modal -->
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{ route('admin.addContact') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Contact</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@if (session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif
 
 <!-- Contact List Card -->
 <div class="container mt-4">
@@ -183,6 +240,7 @@ th {
 <script src="{{asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatable/responsive.bootstrap5.min.js')}}"></script>
 <script src="{{asset('assets/js/table-data.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- INTERNAL Select2 js -->
 <script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>

@@ -66,8 +66,32 @@ class ContactController extends Controller
             return response()->json(['success' => false, 'message' => 'Something went wrong!'], 500);
         }
     }
-
-   
+    public function addContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+        ]);
+    
+        $phoneNumber = '+91' . ltrim($request->phone, '0');
+    
+        // Check if phone already exists
+        $exists = ContactDetails::where('phone', $phoneNumber)->exists();
+    
+        if ($exists) {
+            return redirect()->back()->with('error', 'This phone number already exists!');
+        }
+    
+        // Create contact if phone does not exist
+        ContactDetails::create([
+            'contact_id' => "CONTACT" . rand(1000, 9999),
+            'name' => $request->name,
+            'phone' => $phoneNumber,
+        ]);
+    
+        return redirect()->back()->with('success', 'Contact added successfully!');
+    }
+    
 
 
 }

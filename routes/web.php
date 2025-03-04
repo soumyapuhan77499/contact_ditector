@@ -9,10 +9,10 @@ use App\Http\Controllers\Admin\GroupAssignController;
 use App\Http\Controllers\Admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
-    Route::get('/', 'dashboard')->name('admin.AdminLogin');
+    Route::get('/', 'dashboard')->name('admin.dashboard');
 });
-
 Route::controller(ContactController::class)->group(function() {
+    Route::post('/add-contact', 'addContact')->name('admin.addContact');
     Route::get('admin/manage-contact', 'manageContact')->name('admin.manageContact');
     Route::delete('/contact/delete/{id}','deleteContact')->name('admin.deleteContact');
     Route::post('/contact/update/{id}','updateContact')->name('admin.updateContact');

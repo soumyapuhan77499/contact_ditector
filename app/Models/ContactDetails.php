@@ -14,4 +14,5 @@ class ContactDetails extends Model
     protected $fillable = [
         'contact_id', 'name', 'phone','group_status','status'
     ];
+    
 }
