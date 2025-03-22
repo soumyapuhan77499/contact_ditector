@@ -7,10 +7,18 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\GroupAssignController;
 use App\Http\Controllers\Admin\WhatsappController;
+use App\Http\Controllers\Admin\YatriController;
+
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'dashboard')->name('admin.dashboard');
     Route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
+});
+
+
+Route::controller(YatriController::class)->group(function() {
+    Route::get('/get-yatri', 'getYatri')->name('yatri.getYatri');
+    Route::post('/yatri-form','store')->name('yatri.store');
 });
 
 Route::controller(ContactController::class)->group(function() {
