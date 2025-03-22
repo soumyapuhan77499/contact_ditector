@@ -1,50 +1,81 @@
-				<!-- main-sidebar -->
-				<div class="sticky">
-					<aside class="app-sidebar">
-						<div class="main-sidebar-header active">
-							<a class="header-logo active" href="{{url('admin/dashboard')}}">
-								<img style = "margin-top: -80px;width: 200px;height: 200px" src="{{asset('assets/img/brand/jagannath.png')}}" class="main-logo  desktop-logo" alt="logo">
-								<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo  desktop-dark" alt="logo">
-								<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo  mobile-logo" alt="logo">
-								<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo  mobile-dark" alt="logo">
-							</a>
-						</div>
-						<div class="main-sidemenu">
-							<div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
-							<ul class="side-menu">
+<!-- main-sidebar -->
+<div class="sticky">
+	<aside class="app-sidebar">
+		<div class="main-sidebar-header active">
+			<a class="header-logo active" href="{{url('admin/dashboard')}}">
+				<img style="margin-top: -80px;width: 200px;height: 200px" src="{{asset('assets/img/brand/jagannath.png')}}" class="main-logo desktop-logo" alt="logo">
+				<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo desktop-dark" alt="logo">
+				<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo mobile-logo" alt="logo">
+				<img src="{{asset('assets/img/brand/nijoga.png')}}" class="main-logo mobile-dark" alt="logo">
+			</a>
+		</div>
 
-								<li class="slide">
-									<a class="side-menu__item" href="#"><span class="side-menu__label">CONTACT DITECTOR</span></a>
-								</li>
+		<div class="main-sidemenu">
+			<div class="slide-left disabled" id="slide-left">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+					<path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/>
+				</svg>
+			</div>
 
-								<li class="slide">
-									<a class="side-menu__item" href="{{url('/')}}"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Dashboard</span></a>
-								</li>
+			<ul class="side-menu">
 
-								<li class="slide">
-									<a class="side-menu__item" href="{{url('admin/manage-contact')}}"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Manage Contact Details</span></a>
-								</li>
+				<!-- ❌ Disabled menu item -->
+				<li class="slide">
+					<a class="side-menu__item disabled-link" href="javascript:void(0);" title="This section is disabled">
+						<i class="fas fa-ban" style="color: #999; margin-right: 10px;"></i>
+						<span class="side-menu__label">CONTACT DITECTOR</span>
+					</a>
+				</li>
+			
+				<!-- ✅ Dashboard -->
+				<li class="slide">
+					<a class="side-menu__item" href="{{url('/')}}">
+						<i class="fas fa-home" style="color: #007bff; margin-right: 10px;"></i>
+						<span class="side-menu__label">Dashboard</span>
+					</a>
+				</li>
+			
+				<!-- ✅ Manage Contact -->
+				<li class="slide">
+					<a class="side-menu__item" href="{{url('admin/manage-contact')}}">
+						<i class="fas fa-address-book" style="color: #28a745; margin-right: 10px;"></i>
+						<span class="side-menu__label">Contact</span>
+					</a>
+				</li>
+			
+				<!-- ✅ Assign Group -->
+				<li class="slide">
+					<a class="side-menu__item" href="{{url('admin/assign-group')}}">
+						<i class="fas fa-user-plus" style="color: #17a2b8; margin-right: 10px;"></i>
+						<span class="side-menu__label">Assign Group</span>
+					</a>
+				</li>
+			
+				<!-- ✅ Manage Assign Group -->
+				<li class="slide">
+					<a class="side-menu__item" href="{{url('admin/manage-assign-group')}}">
+						<i class="fas fa-users-cog" style="color: #ffc107; margin-right: 10px;"></i>
+						<span class="side-menu__label">Groups</span>
+					</a>
+				</li>
+			
+				<!-- ✅ Manage Group -->
+				<li class="slide">
+					<a class="side-menu__item" href="{{url('admin/manage-group')}}">
+						<i class="fas fa-layer-group" style="color: #6610f2; margin-right: 10px;"></i>
+						<span class="side-menu__label">Manage Group</span>
+					</a>
+				</li>
+			
+			</ul>
+			
 
-
-								<li class="slide">
-									<a class="side-menu__item" href="{{url('admin/assign-group')}}"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Assign Group</span></a>
-								</li>
-
-								
-								<li class="slide">
-									<a class="side-menu__item" href="{{url('admin/manage-assign-group')}}"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Manage Assign Group</span></a>
-								</li>
-
-								<li class="slide">
-									<a class="side-menu__item" href="{{url('admin/manage-group')}}"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Manage Group</span></a>
-								</li>
-
-								
-
-
-							</ul>
-							<div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
-						</div>
-					</aside>
-				</div>
-				<!-- main-sidebar -->
+			<div class="slide-right" id="slide-right">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+					<path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/>
+				</svg>
+			</div>
+		</div>
+	</aside>
+</div>
+<!-- main-sidebar -->

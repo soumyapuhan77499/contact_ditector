@@ -10,15 +10,20 @@ use App\Http\Controllers\Admin\WhatsappController;
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'dashboard')->name('admin.dashboard');
+    Route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
 });
+
 Route::controller(ContactController::class)->group(function() {
     Route::post('/add-contact', 'addContact')->name('admin.addContact');
     Route::get('admin/manage-contact', 'manageContact')->name('admin.manageContact');
     Route::delete('/contact/delete/{id}','deleteContact')->name('admin.deleteContact');
     Route::post('/contact/update/{id}','updateContact')->name('admin.updateContact');
-    Route::get('/contacts/{filter?}','manageContact')->name('contacts.filter');
+    Route::get('/contacts/{filter?}', 'manageContact')->name('contacts.filter');
+    Route::post('/admin/upload-csv',  'uploadCsv')->name('admin.uploadCsv');
+
+
 });
- 
+
 Route::prefix('admin')->controller(GroupController::class)->group(function() {
     Route::get('/add-group', 'addGroup')->name('admin.addGroup');
     Route::get('/manage-group', 'manageGroup')->name('admin.manageGroup');
@@ -27,11 +32,12 @@ Route::prefix('admin')->controller(GroupController::class)->group(function() {
     Route::delete('/groups/delete/{id}', 'deleteGroup')->name('admin.deleteGroup');
 });
 
-
 Route::prefix('admin')->controller(GroupAssignController::class)->group(function() {
     Route::get('/assign-group', 'assignGroup')->name('admin.assignGroup');
     Route::post('/assign-contacts','saveAssignContacts')->name('assign.contacts');
     Route::get('/manage-assign-group', 'manageAssignGroup')->name('admin.manageAssignGroup');
+    Route::get('/group/contacts/{groupId}', 'viewGroupContacts')->name('group.contacts');
+
 });
 
 Route::post('/send-whatsapp-message', [WhatsappController::class, 'sendMessage'])->name('sendWhatsappMessage');

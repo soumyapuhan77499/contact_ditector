@@ -12,7 +12,12 @@ class ContactDetails extends Model
     protected $table = 'contact_details'; 
 
     protected $fillable = [
-        'contact_id', 'name', 'phone','group_status','status'
+        'contact_id', 'name', 'phone','group_status','status','created_at'
     ];
     
+    public function groupAssignments()
+{
+    return $this->hasMany(GroupAssign::class, 'contact_id', 'contact_id');
+}
+
 }

@@ -8,6 +8,8 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ContactDetails;
+use App\Models\Group;
+
 
 use Carbon\Carbon;
 
@@ -20,29 +22,39 @@ class AdminController extends Controller
     } 
     
 
-    public function dashboard()
-    {
-        $manageContact = ContactDetails::where('status', 'active')->whereDate('created_at', Carbon::today())->get();
+   
+public function dashboard()
+{
+    $manageContact = ContactDetails::where('status', 'active')
+        ->whereDate('created_at', Carbon::today())
+        ->get();
 
-        // Get Today's Contact Count
-        $todayCount = ContactDetails::whereDate('created_at', Carbon::today())->where('status','active')->count();
-    
-        // Get Total Contacts Count
-        $totalCount = ContactDetails::where('status','active')->count();
-    
-        // Get Monthly Contacts Count
-        $monthlyCount = ContactDetails::whereMonth('created_at', Carbon::now()->month)
-                                      ->whereYear('created_at', Carbon::now()->year)
-                                      ->where('status','active')
-                                      ->count();
-    
-        // Get Yearly Contacts Count
-        $yearlyCount = ContactDetails::whereYear('created_at', Carbon::now()->year)
-        ->where('status','active')
+    $todayCount = ContactDetails::whereDate('created_at', Carbon::today())
+        ->where('status', 'active')
         ->count();
-    
-        return view('admin.admin-dashboard', compact('todayCount', 'totalCount', 'monthlyCount', 'yearlyCount', 'manageContact'));
-    }
+
+    $totalCount = ContactDetails::where('status', 'active')->count();
+
+    $monthlyCount = ContactDetails::whereMonth('created_at', Carbon::now()->month)
+        ->whereYear('created_at', Carbon::now()->year)
+        ->where('status', 'active')
+        ->count();
+
+    $yearlyCount = ContactDetails::whereYear('created_at', Carbon::now()->year)
+        ->where('status', 'active')
+        ->count();
+
+    $groupCount = Group::distinct('group_id')->count('group_id'); // ✅ Group Count
+
+    return view('admin.admin-dashboard', compact(
+        'todayCount',
+        'totalCount',
+        'monthlyCount',
+        'yearlyCount',
+        'groupCount',
+        'manageContact'
+    ));
+}
     
     public function AdminRegister()
     {

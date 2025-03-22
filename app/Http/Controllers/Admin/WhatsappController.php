@@ -46,7 +46,7 @@ class WhatsappController extends Controller
         $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
 
         // Twilio WhatsApp From Number (Must be the Twilio Sandbox or Verified Number)
-        $twilioWhatsAppFrom = env('TWILIO_WHATSAPP_FROM', 'whatsapp:+14155238886');
+        $twilioWhatsAppFrom = env('TWILIO_WHATSAPP_FROM', 'whatsapp:+19517204131');
     
         // Send WhatsApp Message to Each Contact
         foreach ($contacts as $contact) {
