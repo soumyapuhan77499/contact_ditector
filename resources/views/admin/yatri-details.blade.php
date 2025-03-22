@@ -75,7 +75,7 @@
                 <span class="p-2 text-blue-600">
                     <i class="fas fa-calendar-plus"></i>
                 </span>
-                <input type="date_of_coming" name="coming_date" required class="w-full p-2 rounded-r-md outline-none">
+                <input type="date" name="coming_date" required class="w-full p-2 rounded-r-md outline-none">
             </div>
 
             <!-- Going Date -->
@@ -83,7 +83,7 @@
                 <span class="p-2 text-red-600">
                     <i class="fas fa-calendar-minus"></i>
                 </span>
-                <input type="date_of_going" name="going_date" required class="w-full p-2 rounded-r-md outline-none">
+                <input type="date" name="date_of_going" required class="w-full p-2 rounded-r-md outline-none">
             </div>
 
           
