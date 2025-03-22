@@ -18,11 +18,11 @@ class YatriController extends Controller
     {
         $validated = $request->validate([
             'yatri_name' => 'required|string|max:255',
-            'mobile' => 'required|string|max:20',
-            'whatsapp' => 'nullable|string|max:20',
+            'mobile_no' => 'required|string|max:20',
+            'whatsapp_no' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'coming_date' => 'required|date',
-            'going_date' => 'required|date|after_or_equal:coming_date',
+            'date_of_coming' => 'required|date',
+            'date_of_going' => 'required|date|after_or_equal:coming_date',
             'description' => 'nullable|string',
             'landmark' => 'nullable|string|max:255',
             'city_village' => 'nullable|string|max:255',
@@ -34,18 +34,17 @@ class YatriController extends Controller
         try {
             YatriDetails::create([
                 'yatri_name' => $validated['yatri_name'],
-                'mobile_no' => $validated['mobile'],
-                'whatsapp_no' => $validated['whatsapp'] ?? null,
+                'mobile_no' => $validated['mobile_no'],
+                'whatsapp_no' => $validated['whatsapp_no'] ?? null,
                 'email' => $validated['email'] ?? null,
-                'date_of_coming' => $validated['coming_date'],
-                'date_of_going' => $validated['going_date'],
+                'date_of_coming' => $validated['date_of_coming'],
+                'date_of_going' => $validated['date_of_going'],
                 'description' => $validated['description'] ?? null,
                 'landmark' => $validated['landmark'] ?? null,
                 'city_village' => $validated['city_village'] ?? null,
                 'district' => $validated['district'] ?? null,
                 'state' => $validated['state'] ?? null,
                 'country' => $validated['country'] ?? null,
-                'status' => 'pending', // default value if not in form
             ]);
 
             return redirect()->back()->with('success', 'Yatri details saved successfully.');

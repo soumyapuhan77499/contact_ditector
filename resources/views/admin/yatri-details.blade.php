@@ -35,8 +35,6 @@
         
             <form action="{{ route('yatri.store') }}" method="post"  class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 @csrf
-            <!-- CSRF -->
-            <input type="hidden" name="_token" value="PUT_YOUR_CSRF_TOKEN_HERE">
 
             <!-- Yatri Name -->
             <div class="flex items-center bg-purple-50 rounded-md shadow-sm">
