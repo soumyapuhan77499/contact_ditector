@@ -18,17 +18,7 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-purple-100 p-4 min-h-screen flex items-center justify-center">
-    @if(session('success'))
-    <div class="mb-4 p-3 bg-green-100 text-green-700 rounded shadow">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if(session('error'))
-    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded shadow">
-        {{ session('error') }}
-    </div>
-@endif
 
     <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6">
         <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">Yatri Visit Details – Puri Dham</h2>
@@ -73,7 +63,7 @@
                 <span class="p-2 text-blue-600">
                     <i class="fas fa-calendar-plus"></i>
                 </span>
-                <input type="date" name="coming_date" required class="w-full p-2 rounded-r-md outline-none">
+                <input type="date" name="date_of_coming" required class="w-full p-2 rounded-r-md outline-none">
             </div>
 
             <!-- Going Date -->
@@ -91,6 +81,14 @@
                     <i class="fas fa-map-marker-alt"></i>
                 </span>
                 <input type="text" name="landmark" placeholder="Landmark" class="w-full p-2 rounded-r-md outline-none">
+            </div>
+
+             <!-- Landmark -->
+             <div class="flex items-center bg-indigo-50 rounded-md shadow-sm">
+                <span class="p-2 text-indigo-600">
+                    <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <input type="number" name="pincode" placeholder="Pincode" class="w-full p-2 rounded-r-md outline-none">
             </div>
 
             <!-- City/Village -->
@@ -144,4 +142,36 @@
     </div>
 
 </body>
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            html: `{!! implode('<br>', $errors->all()) !!}`,
+        });
+    </script>
+@endif
+
+@if (session('db_error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Database Error',
+            text: "{{ session('db_error') }}",
+        });
+    </script>
+@endif
+
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+        });
+    </script>
+@endif
+
 </html>

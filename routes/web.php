@@ -19,6 +19,8 @@ Route::controller(AdminController::class)->group(function() {
 Route::controller(YatriController::class)->group(function() {
     Route::get('/get-yatri', 'getYatri')->name('yatri.getYatri');
     Route::post('/yatri-form','store')->name('yatri.store');
+    Route::get('/yatri/list', 'list')->name('yatri.list');
+
 });
 
 Route::controller(ContactController::class)->group(function() {

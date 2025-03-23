@@ -66,6 +66,14 @@
 						<span class="side-menu__label">Manage Group</span>
 					</a>
 				</li>
+
+					<!-- ✅ Manage Group -->
+					<li class="slide">
+						<a class="side-menu__item" href="{{url('/yatri/list')}}">
+							<i class="fas fa-user" style="color: #075a2b; margin-right: 10px;"></i>
+							<span class="side-menu__label"> Yatri</span>
+						</a>
+					</li>
 			
 			</ul>
 			
