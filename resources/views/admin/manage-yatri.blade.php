@@ -31,7 +31,6 @@
 
     <div class="container mt-4">
         <div class="contact-card">
-            <h5 class="mb-3"><i class="fa-solid fa-address-book contact-icon"></i> Group List</h5>
             <div class="table-responsive export-table">
                 <table id="file-datatable" class="table table-bordered">
                     <thead class="table-light">

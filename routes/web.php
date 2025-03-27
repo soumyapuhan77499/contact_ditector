@@ -1,14 +1,12 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\GroupAssignController;
 use App\Http\Controllers\Admin\WhatsappController;
 use App\Http\Controllers\Admin\YatriController;
-
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/', 'dashboard')->name('admin.dashboard');
